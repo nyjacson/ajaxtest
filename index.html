@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script
+  src="https://code.jquery.com/jquery-2.2.4.js"
+  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+  crossorigin="anonymous"></script>
+  <title>Document</title>
+</head>
+<body>
+  <h2></h2>
+  <div class="bodyitem">
+    data: 
+  </div>
+  <script>
+
+$(function(){
+  // $.ajax({
+  //   type: "GET",
+  //   dataType:'json',
+  //   url: "http://codepen.io/chriscoyier/pen/EAIJj.js",
+  //   success: function(json){
+  //     var stringed = JSON.stringify(json);
+  //     console.log(stringed);
+
+  //     $('.bodyitem').append(json.name);
+  //   },
+  //   error:function(){console.log('Miss..');}
+  // });
+
+	function calcHotelNet(aSiire, aSyouhiZeiRate){
+		var CALC_PRICE_URL = 'test.json';
+		var kin;
+		function getWholesalePriceAjax(){
+			return $.ajax({
+				type: "GET",
+				url: CALC_PRICE_URL,
+				data: {
+					providerCharge: aSiire,
+					consumptionTax: aSyouhiZeiRate
+				},
+				dataType: 'json',
+				cache: false,
+			})
+		}
+
+		$.when(getWholesalePriceAjax())
+			.done(function(response){
+				if (response[1] == "success") {
+					kin = response[0].wholesalePrice;
+					// return kin;
+          console.log(kin);
+				}
+			})
+	}
+
+  calcHotelNet();
+
+
+});
+
+  </script>
+</body>
+</html>

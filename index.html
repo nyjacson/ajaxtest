@@ -8,10 +8,10 @@
   src="https://code.jquery.com/jquery-2.2.4.js"
   integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
   crossorigin="anonymous"></script>
-  <title>Document</title>
+  <title>ajax test</title>
 </head>
 <body>
-  <h2></h2>
+  <h2>Recieved from AJAX</h2>
   <div class="bodyitem">
     data: 
   </div>
@@ -38,8 +38,8 @@ $(function(){
 
   calcHotelNet("aSiire", "aSyouhiZeiRate", function(response){
     console.log(response);
-    var net = response + 1;
-    console.log(net);
+    var net = response * 2;
+    $(".bodyitem").append(net);
   });
 
   // console.log(net);

@@ -18,24 +18,10 @@
   <script>
 
 $(function(){
-  // $.ajax({
-  //   type: "GET",
-  //   dataType:'json',
-  //   url: "http://codepen.io/chriscoyier/pen/EAIJj.js",
-  //   success: function(json){
-  //     var stringed = JSON.stringify(json);
-  //     console.log(stringed);
 
-  //     $('.bodyitem').append(json.name);
-  //   },
-  //   error:function(){console.log('Miss..');}
-  // });
-
-	function calcHotelNet(aSiire, aSyouhiZeiRate){
-		var CALC_PRICE_URL = 'test.json';
-		var kin;
-		function getWholesalePriceAjax(){
-			return $.ajax({
+	var calcHotelNet = function(aSiire, aSyouhiZeiRate, callback){
+		var CALC_PRICE_URL = 'http://localhost:8080/test.json';
+		$.ajax({
 				type: "GET",
 				url: CALC_PRICE_URL,
 				data: {
@@ -44,21 +30,19 @@ $(function(){
 				},
 				dataType: 'json',
 				cache: false,
-			})
-		}
-
-		$.when(getWholesalePriceAjax())
-			.done(function(response){
-				if (response[1] == "success") {
-					kin = response[0].wholesalePrice;
-					// return kin;
-          console.log(kin);
-				}
+        success: function(res){
+          callback(res.wholesalePrice);
+        }
 			})
 	}
 
-  calcHotelNet();
+  calcHotelNet("aSiire", "aSyouhiZeiRate", function(response){
+    console.log(response);
+    var net = response + 1;
+    console.log(net);
+  });
 
+  // console.log(net);
 
 });
 
